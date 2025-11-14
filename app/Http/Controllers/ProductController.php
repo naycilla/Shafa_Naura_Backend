@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Product;
-
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -56,6 +56,7 @@ class ProductController extends Controller
 
     public function delete($id)
     {
+        Transaction::where('product_id', $id)->delete();
         $product = Product::findOrFail($id);
         $product->delete();
 
