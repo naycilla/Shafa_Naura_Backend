@@ -9,10 +9,10 @@ class ProductController extends Controller
 {
     // tampilkan semua product 
      public function index()
-        {
-            $product = Product::all();
-            return view("products.home", compact("product"));
-        }
+    {
+        $product = Product::all();
+        return view("products.home", compact("product"));
+    }
 
     // ke halaman create
     public function create()
@@ -25,11 +25,40 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
+            'price' => 'required|integer|min:1',
+            'stock' => 'required|integer|min:1',
         ]);
 
         Product::create($request->all());
+        return redirect('/products');
+    }
+
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('products.edit', compact('product'));
+    }
+
+    // simpan data yang telah di update
+    public function update(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|integer|min:1',
+            'stock' => 'required|integer|min:1'
+        ]);
+
+        $product->update($request->all());
+        return redirect('/products');
+    }
+
+    public function delete($id)
+    {
+        $product = Product::findOrFail($id);
+        $product->delete();
+
         return redirect('/products');
     }
     

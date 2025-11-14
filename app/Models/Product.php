@@ -11,4 +11,9 @@ class Product extends Model
         'price',
         'stock',
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }
