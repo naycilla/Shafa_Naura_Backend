@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h4>Create Product</h4>
+<h4>Edit Product</h4>
 
 <form action="/products/{{ $product->id }}" method="POST">
     @csrf
